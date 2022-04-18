@@ -1,0 +1,21 @@
+<header class="d-flex justify-between">
+    <h3 class="header-title my-auto">Bonjour {{ app.user.username }} !</h3>
+    <nav>
+        <ul>
+            {% if is_granted('ROLE_ADMIN', app.user) %}
+                {% if '/admin' in app.request.uri %}
+                    <li>
+                        <a href="{{ path('home') }}"><img src="/icons/house-solid.svg"/> Accueil</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path('admin') }}" class="admin-link"><img src="/icons/lock-solid.svg"/> Administration</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+            <li>
+                <a href="{{ path('app_logout') }}"><img src="/icons/right-from-bracket-solid.svg"/> Deconnexion</a>
+            </li>
+        </ul>
+    </nav>
+</header>

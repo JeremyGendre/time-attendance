@@ -17,4 +17,13 @@ class MainController extends BaseAbstractController
     {
         return $this->render('app/app.html.twig');
     }
+
+    /**
+     * @Route("/admin", name="admin")
+     * @return Response
+     */
+    public function admin()
+    {
+        return $this->render('admin/admin.html.twig');
+    }
 }
