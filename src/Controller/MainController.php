@@ -15,9 +15,6 @@ class MainController extends BaseAbstractController
      */
     public function home()
     {
-        if($this->getUser()){
-            return $this->render('app/app.html.twig');
-        }
-        return $this->redirectToRoute('app_login');
+        return $this->render('app/app.html.twig');
     }
 }
