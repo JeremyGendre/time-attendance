@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/annotations": "^1.0",
@@ -25,6 +25,7 @@
         "symfony/http-client": "5.4.*",
         "symfony/intl": "5.4.*",
         "symfony/mailer": "5.4.*",
+        "symfony/maker-bundle": "^1.38",
         "symfony/mime": "5.4.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/notifier": "5.4.*",
@@ -48,7 +49,6 @@
     },
     "require-dev": {
         "symfony/debug-bundle": "5.4.*",
-        "symfony/maker-bundle": "^1.0",
         "symfony/stopwatch": "5.4.*",
         "symfony/web-profiler-bundle": "5.4.*"
     },
