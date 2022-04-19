@@ -39,7 +39,7 @@ function Ticking({title = '', property}){
     const [time, setTime] = useState(todayTicking ?  todayTicking[property] : null);
 
     const handleClick = () => {
-        if(loading) return;
+        if(loading || time) return;
         setLoading(true);
         setTimeout(() => {
             setLoading(false);

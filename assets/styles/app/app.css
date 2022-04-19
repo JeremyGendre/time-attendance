@@ -15,17 +15,17 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     padding:1em;
     border-radius: 5px;
-    cursor: pointer;
     transition: all 0.15s ease-in-out;
     position: relative;
     border: solid 1px transparent;
 }
 
-.ticking-container:hover{
+.ticking-container:not(.ticked):hover{
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    cursor: pointer;
 }
 
-.ticking-container:active{
+.ticking-container:not(.ticked):active{
     transform: scale(0.97);
 }
 .ticking-loading{
@@ -38,6 +38,7 @@
 
 .ticked{
     border: solid 1px green;
+    cursor: not-allowed;
 }
 .ticking-success-icon{
     color:green;
