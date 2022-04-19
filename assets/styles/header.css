@@ -3,6 +3,7 @@ header{
     top:0;
     background-color: var(--header-background-color);
     padding: 1em;
+    box-shadow: 0 0 8px rgba(0,0,0,0.6);
 }
 
 img{
