@@ -19,6 +19,13 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+body{
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -85,9 +92,7 @@ body {
 
 .overflow-hidden{overflow: hidden;}
 
-.error{
-    color: #c11515;
-}
+.error{color: #c11515;}
 
 .no-decoration-link{
     text-decoration: none;

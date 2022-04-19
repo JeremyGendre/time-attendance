@@ -1,0 +1,36 @@
+#app-container{ /* div root qui permet de render le composant App react */
+    flex:1;
+    display: flex;
+}
+
+.app-container{ /* div mère interne au composant react */
+    margin:auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.ticking-container{
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    padding:1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    position: relative;
+    border: solid 1px transparent;
+}
+
+.ticking-container:hover{
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.ticking-container:active{
+    transform: scale(0.97);
+}
+
+.ticked{
+    /*background-color: grey;*/
+    border: solid 1px green;
+}
+

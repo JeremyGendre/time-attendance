@@ -6,31 +6,29 @@
 {% endblock %}
 
 {% block body %}
-    <div class="login-form-container">
-        <form action="{{ path('app_login') }}" method="post">
-            <h2 class="mt-0 text-center">Se connecter</h2>
-            <div class="login-input-group">
-                <label for="username">Username :</label>
-                <input type="text" id="username" required name="_username" {% if not last_username %}autofocus{% endif %} placeholder="Nom d'utilisateur" value="{{ last_username }}"/>
-            </div>
+    <form action="{{ path('app_login') }}" method="post" class="login-form-container">
+        <h2 class="mt-0 text-center">Se connecter</h2>
+        <div class="login-input-group">
+            <label for="username">Username :</label>
+            <input type="text" id="username" required name="_username" {% if not last_username %}autofocus{% endif %} placeholder="Nom d'utilisateur" value="{{ last_username }}"/>
+        </div>
 
-            <div class="login-input-group">
-                <label for="password">Password :</label>
-                <input type="password" id="password" required name="_password" {% if last_username %}autofocus{% endif %} placeholder="Mot de passe"/>
-            </div>
+        <div class="login-input-group">
+            <label for="password">Password :</label>
+            <input type="password" id="password" required name="_password" {% if last_username %}autofocus{% endif %} placeholder="Mot de passe"/>
+        </div>
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            {% if error %}
-                <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+        {% if error %}
+            <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-            {# If you want to control the URL the user is redirected to on success
-            <input type="hidden" name="_target_path" value="/account"/> #}
+        {# If you want to control the URL the user is redirected to on success
+        <input type="hidden" name="_target_path" value="/account"/> #}
 
-            <div class="d-flex mt-2">
-                <button class="mx-auto" type="submit">Connexion</button>
-            </div>
-        </form>
-    </div>
+        <div class="d-flex mt-2">
+            <button class="mx-auto" type="submit">Connexion</button>
+        </div>
+    </form>
 {% endblock %}
