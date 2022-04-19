@@ -4,6 +4,7 @@ import '../../styles/app/app.css';
 import Loader from "../components/Loader";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import AppContextProvider, {useAppContext} from "./context/AppContext";
 
 const appContainer = document.getElementById('app-container');
 
@@ -13,26 +14,29 @@ if(appContainer){
         todayTicking = JSON.parse(todayTicking);
     }
     const root = ReactDOM.createRoot(appContainer);
-    root.render(<App todayTicking={(todayTicking || todayTicking !== '') ? todayTicking : null}/>);
+    root.render(
+        <AppContextProvider defaultTodayTicking={(todayTicking || todayTicking !== '') ? todayTicking : null}>
+            <App/>
+        </AppContextProvider>
+    );
 }
 
-function App({todayTicking = null}){
-
-    console.log(todayTicking);
+function App(){
 
     return (
         <div className="app-container">
-            <Ticking title="Entrée" defaultTime={todayTicking ? todayTicking.enterDate : null}/>
-            <Ticking title="Pause" defaultTime={todayTicking ? todayTicking.breakDate : null}/>
-            <Ticking title="Retour" defaultTime={todayTicking ? todayTicking.returnDate : null}/>
-            <Ticking title="Sortie" defaultTime={todayTicking ? todayTicking.exitDate : null}/>
+            <Ticking title="Entrée" property="enterDate"/>
+            <Ticking title="Pause" property="breakDate"/>
+            <Ticking title="Retour" property="returnDate"/>
+            <Ticking title="Sortie" property="exitDate"/>
         </div>
     );
 }
 
-function Ticking({title = '', defaultTime = null}){
+function Ticking({title = '', property}){
+    const {todayTicking} = useAppContext();
     const [loading, setLoading] = useState(false);
-    const [time, setTime] = useState(defaultTime);
+    const [time, setTime] = useState(todayTicking ?  todayTicking[property] : null);
 
     const handleClick = () => {
         if(loading) return;
