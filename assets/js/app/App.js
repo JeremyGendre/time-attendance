@@ -8,44 +8,49 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 const appContainer = document.getElementById('app-container');
 
 if(appContainer){
+    let todayTicking = appContainer.getAttribute('data-today-ticking');
+    if(todayTicking){
+        todayTicking = JSON.parse(todayTicking);
+    }
     const root = ReactDOM.createRoot(appContainer);
-    root.render(<App/>);
+    root.render(<App todayTicking={(todayTicking || todayTicking !== '') ? todayTicking : null}/>);
 }
 
-function App(){
+function App({todayTicking = null}){
+
+    console.log(todayTicking);
+
     return (
         <div className="app-container">
-            <Ticking title="Entrée"/>
-            <Ticking title="Pause"/>
-            <Ticking title="Retour"/>
-            <Ticking title="Sortie"/>
+            <Ticking title="Entrée" defaultTime={todayTicking ? todayTicking.enterDate : null}/>
+            <Ticking title="Pause" defaultTime={todayTicking ? todayTicking.breakDate : null}/>
+            <Ticking title="Retour" defaultTime={todayTicking ? todayTicking.returnDate : null}/>
+            <Ticking title="Sortie" defaultTime={todayTicking ? todayTicking.exitDate : null}/>
         </div>
     );
 }
 
-function Ticking({title = ''}){
-    const [ticked, setTicked] = useState(false);
+function Ticking({title = '', defaultTime = null}){
     const [loading, setLoading] = useState(false);
-    const [time, setTime] = useState(null);
+    const [time, setTime] = useState(defaultTime);
 
     const handleClick = () => {
         if(loading) return;
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            setTicked(prev => !prev);
             setTime('12:51');
         },2000);
     };
 
     return (
-        <div onClick={handleClick} className={`ticking-container ${loading ? 'ticking-loading' : ''} ${ticked ? 'ticked' : ''}`}>
+        <div onClick={handleClick} className={`ticking-container ${loading ? 'ticking-loading' : ''} ${time ? 'ticked' : ''}`}>
             {loading && <Loader/>}
             <div>
                 <div className="font-bold d-flex justify-between">
                     <div>{title}</div>
                     <div className="my-auto">
-                        {ticked && <FontAwesomeIcon className="ticking-success-icon" icon={faCircleCheck} />}
+                        {time && <FontAwesomeIcon className="ticking-success-icon" icon={faCircleCheck} />}
                     </div>
                 </div>
                 <hr/>

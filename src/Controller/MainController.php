@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Repository\ServiceRepository;
 use App\Repository\TickingRepository;
+use App\Service\Serializer\TimeSerializerHelper;
 use DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,16 +25,17 @@ class MainController extends BaseAbstractController
      */
     public function home(TickingRepository $tickingRepository)
     {
-        $todayService = $tickingRepository->findOneBy(['user' => $this->getUser(),'tickingDay' => new DateTime()]);
-        if($todayService){
-            $todayService = $this->getSerializer()->normalize($todayService, null, [
+        $todayTicking = $tickingRepository->findOneBy(['user' => $this->getUser(),'tickingDay' => new DateTime()]);
+        if($todayTicking){
+            $todayTicking = $this->getSerializer()->normalize($todayTicking, null, [
                 'groups' => 'main',
                 DateTimeNormalizer::FORMAT_KEY => 'd/m/Y H:i',
             ]);
+            $todayTicking = TimeSerializerHelper::normalizeTimeAttributes($todayTicking);
         }
-        dd($todayService);
+
         return $this->render('app/app.html.twig',[
-            'service' => $todayService
+            'todayTicking' => $todayTicking
         ]);
     }
 

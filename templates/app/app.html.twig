@@ -7,7 +7,7 @@
 
 {% block body %}
     {{ include('components/header.html.twig') }}
-    <div id="app-container"></div>
+    <div id="app-container" data-today-ticking="{{ todayTicking ? todayTicking|json_encode : '' }}"></div>
 {% endblock %}
 
 {% block javascripts %}
