@@ -28,6 +28,13 @@
 .ticking-container:active{
     transform: scale(0.97);
 }
+.ticking-loading{
+    cursor: default;
+}
+.ticking-loading:active{
+    transform: unset;
+}
+
 
 .ticked{
     border: solid 1px green;

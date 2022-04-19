@@ -29,6 +29,7 @@ function Ticking({title = ''}){
     const [time, setTime] = useState(null);
 
     const handleClick = () => {
+        if(loading) return;
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
