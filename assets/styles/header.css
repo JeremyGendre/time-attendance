@@ -9,7 +9,12 @@ img{
     width: 1em;
     margin: auto 0.5em auto auto;
 }
-
+.header-svg{
+    width: 1em;
+    height: 1em;
+    fill: var(--background-color);
+    transition: all 0.15s ease-in-out;
+}
 .header-title{
     color: var(--background-color);
 }
@@ -23,6 +28,7 @@ header ul{
 }
 header a{
     display: flex;
+    gap:0.5em;
     text-decoration: none;
     color:var(--background-color);
     padding: 0.5em 1em;
@@ -34,12 +40,17 @@ header a:hover{
     background-color: var(--background-color);
     color: var(--header-background-color);
 }
+header a:hover > .header-svg{
+    fill: var(--header-background-color);
+}
 
 .admin-link{
-    /*color:var(--admin-color);*/
     border-color: var(--admin-color);
 }
 .admin-link:hover{
     color: var(--background-color);
     background-color: var(--admin-color);
+}
+.admin-link:hover > .header-svg{
+    fill : var(--background-color);
 }
