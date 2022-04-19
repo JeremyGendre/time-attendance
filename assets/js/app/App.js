@@ -26,12 +26,14 @@ function App(){
 function Ticking({title = ''}){
     const [ticked, setTicked] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [time, setTime] = useState(null);
 
     const handleClick = () => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            setTicked(prev => !prev)
+            setTicked(prev => !prev);
+            setTime('12:51');
         },2000);
     };
 
@@ -47,7 +49,11 @@ function Ticking({title = ''}){
                 </div>
                 <hr/>
                 <div>
-                    <small><i>Aucun horaire saisi</i></small>
+                    {time ? (
+                        <div>Pointé à : <strong>{time}</strong></div>
+                    ) : (
+                        <small><i>Aucun horaire saisi</i></small>
+                    )}
                 </div>
             </div>
         </div>
