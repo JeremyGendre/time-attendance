@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\TickingRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TickingRepository::class)
@@ -16,37 +18,44 @@ class Ticking
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"main"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"main"})
      */
     private $tickingDay;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
+     * @Groups({"main"})
      */
     private $enterDate;
 
     /**
      * @ORM\Column(type="time", nullable=true)
+     * @Groups({"main"})
      */
     private $breakDate;
 
     /**
      * @ORM\Column(type="time", nullable=true)
+     * @Groups({"main"})
      */
     private $returnDate;
 
     /**
      * @ORM\Column(type="time", nullable=true)
+     * @Groups({"main"})
      */
     private $exitDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"main"})
      */
     private $user;
 
@@ -65,60 +74,60 @@ class Ticking
         return $this->id;
     }
 
-    public function getTickingDay(): ?\DateTimeInterface
+    public function getTickingDay(): ?DateTimeInterface
     {
         return $this->tickingDay;
     }
 
-    public function setTickingDay(\DateTimeInterface $tickingDay): self
+    public function setTickingDay(DateTimeInterface $tickingDay): self
     {
         $this->tickingDay = $tickingDay;
 
         return $this;
     }
 
-    public function getEnterDate(): ?\DateTimeInterface
+    public function getEnterDate(): ?DateTimeInterface
     {
         return $this->enterDate;
     }
 
-    public function setEnterDate(\DateTimeInterface $enterDate): self
+    public function setEnterDate(DateTimeInterface $enterDate): self
     {
         $this->enterDate = $enterDate;
 
         return $this;
     }
 
-    public function getBreakDate(): ?\DateTimeInterface
+    public function getBreakDate(): ?DateTimeInterface
     {
         return $this->breakDate;
     }
 
-    public function setBreakDate(?\DateTimeInterface $breakDate): self
+    public function setBreakDate(?DateTimeInterface $breakDate): self
     {
         $this->breakDate = $breakDate;
 
         return $this;
     }
 
-    public function getReturnDate(): ?\DateTimeInterface
+    public function getReturnDate(): ?DateTimeInterface
     {
         return $this->returnDate;
     }
 
-    public function setReturnDate(?\DateTimeInterface $returnDate): self
+    public function setReturnDate(?DateTimeInterface $returnDate): self
     {
         $this->returnDate = $returnDate;
 
         return $this;
     }
 
-    public function getExitDate(): ?\DateTimeInterface
+    public function getExitDate(): ?DateTimeInterface
     {
         return $this->exitDate;
     }
 
-    public function setExitDate(?\DateTimeInterface $exitDate): self
+    public function setExitDate(?DateTimeInterface $exitDate): self
     {
         $this->exitDate = $exitDate;
 

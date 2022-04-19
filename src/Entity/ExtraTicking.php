@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ExtraTickingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ExtraTickingRepository::class)
@@ -14,27 +15,32 @@ class ExtraTicking extends AbstractHistory
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"main"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="time")
+     * @Groups({"main"})
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="time")
+     * @Groups({"main"})
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"main"})
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ticking::class, inversedBy="extraTickings")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"main"})
      */
     private $ticking;
 

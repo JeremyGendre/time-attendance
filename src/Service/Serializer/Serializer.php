@@ -25,7 +25,7 @@ class Serializer
      * @return array|ArrayObject|bool|float|int|mixed|string|null
      * @throws ExceptionInterface
      */
-    public function normalize($object, string $format = null, array $context = []): mixed
+    public function normalize($object, string $format = null, array $context = [])
     {
         return $this->normalizer->normalize($object, $format, $context);
     }
@@ -77,7 +77,7 @@ class Serializer
      * @param array $context
      * @return mixed
      */
-    public function deserialize($data, string $type, string $format, array $context = []): mixed
+    public function deserialize($data, string $type, string $format, array $context = [])
     {
         return $this->serializer->deserialize($data, $type, $format, $context);
     }
