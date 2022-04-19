@@ -33,4 +33,20 @@
     /*background-color: grey;*/
     border: solid 1px green;
 }
+.ticking-success-icon{
+    color:green;
+    transform: translateX(0em);
+    animation: success-icon-anim 0.5s ease-out;
+    opacity: 1;
+}
 
+@keyframes success-icon-anim {
+    0% {
+        opacity: 0;
+        transform: translateX(-1em);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
