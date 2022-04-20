@@ -44,7 +44,7 @@ function Ticking({title = '', property}){
         setTimeout(() => {
             setLoading(false);
             setTime('12:51');
-        },2000);
+        },1500);
     };
 
     return (

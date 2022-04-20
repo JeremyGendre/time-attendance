@@ -34,11 +34,17 @@ button{
     border-radius: 9999px;
     transition: all 0.1s ease-in-out;
     cursor:pointer;
+    outline: unset !important;
 }
-button:hover{
+button:not(.submitting-btn):hover{
     background-color: var(--hover-color);
     border-color: var(--hover-color);
 }
-button:focus{
-    outline: unset !important;
+button:not(.submitting-btn):active{
+    transform: scale(0.97);
+}
+
+.submitting-btn{
+    cursor: default;
+    opacity: 0.5;
 }
