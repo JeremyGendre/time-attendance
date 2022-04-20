@@ -18,6 +18,7 @@
     transition: all 0.15s ease-in-out;
     position: relative;
     border: solid 1px transparent;
+    margin:0.5em;
 }
 
 .ticking-container:not(.ticked):hover{

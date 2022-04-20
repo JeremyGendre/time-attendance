@@ -55,3 +55,9 @@ header a:hover > .header-svg{
 .admin-link:hover > .header-svg{
     fill : var(--background-color);
 }
+
+@media (max-width: 600px) {
+    .admin-link-text{
+        display: none;
+    }
+}
