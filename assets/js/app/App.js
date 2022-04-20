@@ -4,6 +4,7 @@ import '../../styles/app/app.css';
 import AppContextProvider, {useAppContext} from "./context/AppContext";
 import Ticking from "./Ticking";
 import {getDateString} from "../utils/date";
+import useTime from "../utils/hooks/useTime";
 
 const appContainer = document.getElementById('app-container');
 
@@ -22,15 +23,11 @@ if(appContainer){
 
 function App(){
     const {todayTicking} = useAppContext();
-    const [date, setDate] = useState(getDateString(new Date()));
-
-    setInterval(() => {
-        setDate(getDateString(new Date()));
-    },1000);
+    const time = useTime();
 
     return (
         <div className="app-container">
-            <div className="text-center my-2 flex-1" style={{fontSize: '2em'}}>Nous sommes le <strong>{date}</strong></div>
+            <div className="text-center my-2 flex-1" style={{fontSize: '2em'}}>Nous sommes le <strong>{time}</strong></div>
             <div className="app-ticking-container">
                 <Ticking title="Entrée" property="enterDate" action="enter"/>
                 <Ticking title="Pause" property="breakDate" action="break"/>
