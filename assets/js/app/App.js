@@ -41,10 +41,7 @@ function Ticking({title = '', property}){
     const handleClick = () => {
         if(loading || time) return;
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-            setTime('12:51');
-        },1500);
+
     };
 
     return (
