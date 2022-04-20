@@ -3,12 +3,20 @@
     display: flex;
 }
 
-.app-container{ /* div mère interne au composant react */
-    margin:auto;
+.app-container{
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    flex-direction: column;
     width: 100%;
+    align-items: center;
+}
+.app-ticking-container{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -21,6 +29,7 @@
     border: solid 1px transparent;
     margin:0.5em;
     max-width: 200px;
+    min-width: 100px;
 }
 
 .ticking-container:not(.ticked):hover{
