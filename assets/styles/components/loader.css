@@ -22,6 +22,11 @@
     animation:spin 1s linear infinite;
 }
 
+.simple-loader{
+    border: solid 2px whitesmoke;
+    border-left: solid 2px var(--header-background-color);
+}
+
 @keyframes spin {
     100% {
         -webkit-transform: rotate(360deg);
