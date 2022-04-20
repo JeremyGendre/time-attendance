@@ -5,6 +5,7 @@ import AppContextProvider, {useAppContext} from "./context/AppContext";
 import Ticking from "./Ticking";
 import {getDateString} from "../utils/date";
 import useTime from "../utils/hooks/useTime";
+import ExtraTicking from "./ExtraTicking";
 
 const appContainer = document.getElementById('app-container');
 
@@ -37,7 +38,7 @@ function App(){
             <div className="px-2 my-2 w-full">
                 <hr className="w-full"/>
             </div>
-            <div>oui</div>
+            <ExtraTicking/>
         </div>
     );
 }
