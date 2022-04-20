@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
 
 export default function ExtraTicking(){
     const [fetching, setFetching] = useState(true);
-    const [extraTicking, setExtraTicking] = useState([]);
+    const [extraTickings, setExtraTickings] = useState([]);
 
     useEffect(() => {
         axios.get(`/extra-ticking/today`)
             .then(result => {
-                setExtraTicking(result.data.extraTickings);
+                setExtraTickings(result.data.extraTickings);
             })
             .catch(console.error)
             .finally(() => setFetching(false))
@@ -18,8 +20,13 @@ export default function ExtraTicking(){
 
     return (
         <div className="extra-tickings-container">
-            <div>Pointages exceptionnels :</div>
-            <div>{extraTicking.map(extraTicking => (
+            <h2 className="d-inline-block">Pointages exceptionnels ({extraTickings.length})</h2>
+            <div className="d-inline-block ml-2 my-auto">
+                <div className="d-flex my-button">
+                    <FontAwesomeIcon className="my-auto mr-1" icon={faPlus} /> Nouveau
+                </div>
+            </div>
+            <div>{extraTickings.map(extraTicking => (
                 <div key={`extra-ticking-${extraTicking.id}`}>
                     <div>{extraTicking.startDate} - {extraTicking.endDate}</div>
                 </div>

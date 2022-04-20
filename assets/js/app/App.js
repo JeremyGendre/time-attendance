@@ -28,7 +28,7 @@ function App(){
 
     return (
         <div className="app-container">
-            <div className="text-center my-2 flex-1" style={{fontSize: '2em'}}>Nous sommes le <strong>{time}</strong></div>
+            <div className="text-center my-2" style={{fontSize: '2em'}}>Nous sommes le <strong>{time}</strong></div>
             <div className="app-ticking-container">
                 <Ticking title="Entrée" property="enterDate" action="enter"/>
                 <Ticking title="Pause" property="breakDate" action="break"/>
