@@ -7,6 +7,7 @@ import Button from "../components/Button";
 export default function ExtraTicking(){
     const [fetching, setFetching] = useState(true);
     const [extraTickings, setExtraTickings] = useState([]);
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         axios.get(`/extra-ticking/today`)
@@ -17,13 +18,21 @@ export default function ExtraTicking(){
             .finally(() => setFetching(false))
     },[]);
 
+    const handleNewExtraTickingClick = () => {
+        setShowPopup(true);
+    };
+
+    const handleNewExtraTicking = (newExtraTicking) => {
+        setExtraTickings(prev => [...prev, newExtraTicking]);
+    };
+
     if(fetching) return <div className="d-flex"><div className="my-auto mr-1">Chargement...</div><div className="loader simple-loader"/></div>;
 
     return (
         <div className="extra-tickings-container">
             <h2 className="d-inline-block">Pointages exceptionnels ({extraTickings.length})</h2>
             <div className="d-inline-block ml-2 my-auto">
-                <Button icon={faPlus}>Nouveau</Button>
+                <Button onClick={handleNewExtraTickingClick} icon={faPlus}>Nouveau</Button>
             </div>
             {extraTickings.length > 0 && (
                 <table>
@@ -45,24 +54,35 @@ export default function ExtraTicking(){
                     </tbody>
                 </table>
             )}
-            <Popup title="Pointage exceptionnel">
-                <form>
-                    <div className="d-flex justify-center flex-wrap gap-2 my-2">
-                        <div>
-                            <label htmlFor="extra-ticking-start" className="d-block text-center" style={{marginBottom: '0.2em'}}>Départ</label>
-                            <input id="extra-ticking-start" type="time"/>
-                        </div>
-                        <div>
-                            <label htmlFor="extra-ticking-end" className="d-block text-center" style={{marginBottom: '0.2em'}}>Retour</label>
-                            <input id="extra-ticking-end" type="time"/>
-                        </div>
-                    </div>
-                    <textarea className="w-full max-w-full mb-2 p-1" rows={6} placeholder="Détail"/>
-                    <div className="d-flex justify-center">
-                        <Button filled bordered>Enregistrer</Button>
-                    </div>
-                </form>
+            <Popup onClose={() => setShowPopup(false)} show={showPopup} title="Pointage exceptionnel">
+                <NewExtraTickingForm onNew={handleNewExtraTicking}/>
             </Popup>
         </div>
+    );
+}
+
+function NewExtraTickingForm({onNew}){
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className="d-flex justify-center flex-wrap gap-2 my-2">
+                <div>
+                    <label htmlFor="extra-ticking-start" className="d-block text-center" style={{marginBottom: '0.2em'}}>Départ</label>
+                    <input id="extra-ticking-start" type="time"/>
+                </div>
+                <div>
+                    <label htmlFor="extra-ticking-end" className="d-block text-center" style={{marginBottom: '0.2em'}}>Retour</label>
+                    <input id="extra-ticking-end" type="time"/>
+                </div>
+            </div>
+            <textarea className="w-full max-w-full mb-2 p-1" rows={6} placeholder="Détail"/>
+            <div className="d-flex justify-center">
+                <Button filled bordered>Enregistrer</Button>
+            </div>
+        </form>
     );
 }

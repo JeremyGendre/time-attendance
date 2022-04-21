@@ -16,6 +16,7 @@
     background-color: var(--background-color);
     min-width: 20em;
     font-size: 1.1em;
+    animation: linear pop 0.15s;
 }
 
 .popup-title{
@@ -28,4 +29,10 @@
         width: 100%;
         min-width: unset;
     }
+}
+
+@keyframes pop {
+    0%{transform: scale(0);}
+    80%{transform: scale(1.1);}
+    100%{transform: scale(1);}
 }
