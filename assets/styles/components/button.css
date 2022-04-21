@@ -8,14 +8,24 @@
     box-shadow: 0 0 5px rgba(0,0,0,0.2);
     border:none;
 }
+.my-button:disabled{
+    cursor: default;
+    opacity: 0.5;
+}
+.my-button:not(.my-button:disabled):hover, .filled-button{
+    color: var(--background-color);
+    background-color: var(--header-background-color);
+}
+.my-button:not(.my-button:disabled):active{
+    transform: scale(0.97);
+}
+
 .bordered-button{
     border:solid 1px var(--header-background-color);
     box-shadow: none;
 }
-.my-button:hover{
-    color: var(--background-color);
-    background-color: var(--header-background-color);
-}
-.my-button:active{
-    transform: scale(0.97);
+
+.filled-button:not(.my-button:disabled):hover{
+    background-color: var(--background-color);
+    color: var(--header-background-color);
 }

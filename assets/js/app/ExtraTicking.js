@@ -47,12 +47,20 @@ export default function ExtraTicking(){
             )}
             <Popup title="Pointage exceptionnel">
                 <form>
-                    <div className="d-flex justify-between my-2">
-                        <input type="time"/>
-                        <input type="time"/>
+                    <div className="d-flex justify-center flex-wrap gap-2 my-2">
+                        <div>
+                            <label htmlFor="extra-ticking-start" className="d-block text-center" style={{marginBottom: '0.2em'}}>Départ</label>
+                            <input id="extra-ticking-start" type="time"/>
+                        </div>
+                        <div>
+                            <label htmlFor="extra-ticking-end" className="d-block text-center" style={{marginBottom: '0.2em'}}>Retour</label>
+                            <input id="extra-ticking-end" type="time"/>
+                        </div>
                     </div>
-                    <textarea className="w-full mb-2"></textarea>
-                    <Button bordered>Enregistrer</Button>
+                    <textarea className="w-full max-w-full mb-2 p-1" rows={6} placeholder="Détail"/>
+                    <div className="d-flex justify-center">
+                        <Button filled bordered>Enregistrer</Button>
+                    </div>
                 </form>
             </Popup>
         </div>

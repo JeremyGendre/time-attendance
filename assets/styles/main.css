@@ -53,8 +53,15 @@ body{
 .flex-1{flex: 1;}
 .flex-initial{flex: initial;}
 
+.gap-1{gap: 0.5em;}
+.gap-2{gap: 1em;}
+
 .w-full {width: 100%;}
+.min-w-full {min-width: 100%;}
+.max-w-full {max-width: 100%;}
 .h-full {height: 100%;}
+.min-h-full {min-height: 100%;}
+.max-h-full {max-height: 100%;}
 
 .w-screen {width: 100vw;}
 .h-screen {height: 100vh;}
@@ -92,10 +99,19 @@ body{
     padding-left: 1em;
     padding-right: 1em;
 }
+.py-1 {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+.py-2 {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
 
 .mt-0 {margin-top: 0;}
 .mt-1 {margin-top: 0.5em;}
 .mt-2 {margin-top: 1em;}
+.mb-1 {margin-bottom: 0.5em;}
 .mb-2 {margin-bottom: 1em;}
 
 .mr-1 {margin-right: 0.5em;}
@@ -131,4 +147,8 @@ label{
 hr{
     border:none;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+*:focus{
+    outline:none;
 }

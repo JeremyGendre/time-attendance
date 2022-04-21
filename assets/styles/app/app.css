@@ -102,3 +102,7 @@ input[type=time]:focus{
     border-color:var(--hover-color);
     box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
+textarea{
+    border:none;
+    border-left: solid 2px var(--header-background-color);
+}
