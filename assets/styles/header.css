@@ -28,7 +28,32 @@ header ul{
     margin:0;
     gap:1em;
 }
-header a{
+
+.header-link{
+    display: flex;
+    gap:0.5em;
+    text-decoration: none;
+    color:var(--background-color);
+    transition: all 0.15s ease-in-out;
+    padding: 0.5em 1em;
+    position: relative;
+}
+.header-link:after{
+    content:'';
+    position: absolute;
+    bottom:0;
+    right:0;
+    left:0;
+    width: 0;
+    height: 1px;
+    background-color: var(--background-color);
+    transition: all 0.2s ease-in-out;
+}
+.header-link:hover:after{
+    width: 100%;
+}
+
+.logout-link{
     display: flex;
     gap:0.5em;
     text-decoration: none;
@@ -38,23 +63,25 @@ header a{
     border-radius: 999px;
     transition: all 0.15s ease-in-out;
 }
-header a:hover{
+.logout-link:hover{
     background-color: var(--background-color);
     color: var(--header-background-color);
 }
-header a:hover > .header-svg{
+.logout-link:hover > .header-svg{
     fill: var(--header-background-color);
+}
+.logout-link:active{
+    transform: scale(0.97);
 }
 
 .admin-link{
     border-color: var(--admin-color);
 }
-.admin-link:hover{
-    color: var(--background-color);
-    background-color: var(--admin-color);
+.admin-link > .header-svg{
+    fill:var(--admin-color);
 }
-.admin-link:hover > .header-svg{
-    fill : var(--background-color);
+.admin-link:after{
+    background-color: var(--admin-color);
 }
 
 @media (max-width: 600px) {
