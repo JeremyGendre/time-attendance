@@ -7,6 +7,7 @@ use App\Entity\Ticking;
 use App\Repository\TickingRepository;
 use App\Repository\UserRepository;
 use App\Service\Request\RequestManager;
+use App\Service\Ticking\TickingManager;
 use App\Service\Utils\DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -24,14 +25,14 @@ class TickingController extends BaseAbstractController
      * @Route("", name="tick_action", methods={"POST"})
      * @param RequestManager $requestManager
      * @param UserRepository $userRepository
-     * @param TickingRepository $tickingRepository
+     * @param TickingManager $tickingManager
      * @return JsonResponse
      * @throws Exception
      */
     public function tick(
         RequestManager $requestManager,
         UserRepository $userRepository,
-        TickingRepository $tickingRepository
+        TickingManager $tickingManager
     ): JsonResponse{
         $userId = $requestManager->get('user');
         $user = $this->getUser();
@@ -43,11 +44,7 @@ class TickingController extends BaseAbstractController
         if(!$action) throw new BadRequestException("L'action doit être précisée");
 
         $now = new DateTime();
-        $ticking = $tickingRepository->findOneBy(['user' => $user,'tickingDay' => $now]);
-        if(!$ticking) {
-            $ticking = new Ticking();
-            $ticking->setUser($user)->setTickingDay($now);
-        }
+        $ticking = $tickingManager->getOrCreateTicking($user, $now);
 
         switch ($action){
             case 'enter':

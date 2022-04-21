@@ -69,9 +69,8 @@ function NewExtraTickingForm({onNew}){
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        axios.post().then().catch().finally()
     };
-
-    console.log(start,end,description);
 
     const isFormValid = !!start && !!end;
 
@@ -97,8 +96,7 @@ function NewExtraTickingForm({onNew}){
                 placeholder="Détail"
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
-            >
-            </textarea>
+            />
             <div className="d-flex justify-center">
                 <Button disabled={!isFormValid} filled bordered>Enregistrer</Button>
             </div>

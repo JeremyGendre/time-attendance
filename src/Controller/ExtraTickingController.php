@@ -3,9 +3,13 @@
 
 namespace App\Controller;
 
+use App\Entity\ExtraTicking;
 use App\Repository\TickingRepository;
+use App\Service\Request\RequestManager;
+use App\Service\Ticking\TickingManager;
 use App\Service\Utils\DateTime;
 use Exception;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
@@ -34,6 +38,39 @@ class ExtraTickingController extends BaseAbstractController
                 'groups' => 'main',
                 DateTimeNormalizer::FORMAT_KEY => 'H:i'
             ])
+        ]);
+    }
+
+    /**
+     * @Route("/today", name="create_extra_ticking_for_today", methods={"POST"})
+     * @param RequestManager $requestManager
+     * @param TickingManager $tickingManager
+     * @return JsonResponse
+     * @throws ExceptionInterface
+     * @throws Exception
+     */
+    public function createExtraTickingForToday(
+        RequestManager $requestManager,
+        TickingManager $tickingManager
+    ):JsonResponse{
+        $start = $requestManager->get('start');
+        $end = $requestManager->get('end');
+        if(!$start || !$end) throw new BadRequestException("L'heure de départ et de retour sont obligatoires");
+
+        $todayTicking = $tickingManager->getOrCreateTodayTicking();
+
+        $extraTicking = new ExtraTicking();
+        $extraTicking->setTicking($todayTicking)
+            ->setStartDate(new DateTime($start))
+            ->setEndDate(new DateTime($end))
+            ->setDescription($requestManager->get('description', ''));
+
+        $manager = $this->getManager();
+        $manager->persist($extraTicking);
+        $manager->flush();
+
+        return new JsonResponse([
+            'extraTicking' => $this->getSerializer()->normalize($extraTicking, null, ['groups' => 'main'])
         ]);
     }
 }
