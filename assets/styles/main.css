@@ -123,6 +123,9 @@ body{
 
 .overflow-hidden{overflow: hidden;}
 
+.cursor-pointer{cursor: pointer;}
+.cursor-default{cursor: default;}
+
 .error{color: #c11515;}
 
 .no-decoration-link{
@@ -151,4 +154,12 @@ hr{
 
 *:focus{
     outline:none;
+}
+
+.theme-icons{
+    color:var(--header-background-color);
+    transition: all 0.15s ease-in-out;
+}
+.theme-icons:hover{
+    color:var(--hover-color);
 }

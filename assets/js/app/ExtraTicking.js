@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus, faCircleXmark} from "@fortawesome/free-solid-svg-icons";
 import Popup from "../components/Popup";
 import Button from "../components/Button";
 
@@ -62,26 +63,44 @@ export default function ExtraTicking(){
 }
 
 function NewExtraTickingForm({onNew}){
+    const [start, setStart] = useState('');
+    const [end, setEnd] = useState('');
+    const [description, setDescription] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
     };
 
+    console.log(start,end,description);
+
+    const isFormValid = !!start && !!end;
+
     return (
         <form onSubmit={handleSubmit}>
             <div className="d-flex justify-center flex-wrap gap-2 my-2">
                 <div>
-                    <label htmlFor="extra-ticking-start" className="d-block text-center" style={{marginBottom: '0.2em'}}>Départ</label>
-                    <input id="extra-ticking-start" type="time"/>
+                    <label htmlFor="extra-ticking-start" className="d-block text-center" style={{marginBottom: '0.2em'}}>
+                        Départ {!!start && <FontAwesomeIcon onClick={() => setStart('')} className="cursor-pointer theme-icons" icon={faCircleXmark}/>}
+                    </label>
+                    <input id="extra-ticking-start" type="time" value={start} onChange={e => setStart(e.target.value)}/>
                 </div>
                 <div>
-                    <label htmlFor="extra-ticking-end" className="d-block text-center" style={{marginBottom: '0.2em'}}>Retour</label>
-                    <input id="extra-ticking-end" type="time"/>
+                    <label htmlFor="extra-ticking-end" className="d-block text-center" style={{marginBottom: '0.2em'}}>
+                        Retour {!!end && <FontAwesomeIcon onClick={() => setEnd('')} className="cursor-pointer theme-icons" icon={faCircleXmark}/>}
+                    </label>
+                    <input id="extra-ticking-end" type="time" value={end} onChange={e => setEnd(e.target.value)}/>
                 </div>
             </div>
-            <textarea className="w-full max-w-full mb-2 p-1" rows={6} placeholder="Détail"/>
+            <textarea
+                className="w-full max-w-full mb-2 p-1"
+                rows={6}
+                placeholder="Détail"
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
+            >
+            </textarea>
             <div className="d-flex justify-center">
-                <Button filled bordered>Enregistrer</Button>
+                <Button disabled={!isFormValid} filled bordered>Enregistrer</Button>
             </div>
         </form>
     );
