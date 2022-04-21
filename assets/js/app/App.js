@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ReactDOM from "react-dom/client";
 import '../../styles/app/app.css';
 import AppContextProvider, {useAppContext} from "./context/AppContext";
 import Ticking from "./Ticking";
-import {getDateString} from "../utils/date";
 import useTime from "../utils/hooks/useTime";
 import ExtraTicking from "./ExtraTicking";
 
@@ -23,7 +22,6 @@ if(appContainer){
 }
 
 function App(){
-    const {todayTicking} = useAppContext();
     const time = useTime();
 
     return (

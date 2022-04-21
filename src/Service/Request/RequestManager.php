@@ -32,7 +32,7 @@ class RequestManager
      */
     public function get(string $key, $default = null)
     {
-        return $this->request->get($key, $default) ?? ($this->requestContent[$key] ?? $default);
+        return $this->request->get($key) ?? ($this->requestContent[$key] ?? $default);
     }
 
     /**

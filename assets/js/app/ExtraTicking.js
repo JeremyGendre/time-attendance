@@ -25,6 +25,7 @@ export default function ExtraTicking(){
 
     const handleNewExtraTicking = (newExtraTicking) => {
         setExtraTickings(prev => [...prev, newExtraTicking]);
+        setShowPopup(false);
     };
 
     if(fetching) return <div className="d-flex"><div className="my-auto mr-1">Chargement...</div><div className="loader simple-loader"/></div>;
@@ -66,10 +67,26 @@ function NewExtraTickingForm({onNew}){
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
     const [description, setDescription] = useState('');
+    const [error, setError] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post().then().catch().finally()
+        if(!start || !end){
+            setError("L'heure de départ et de retour doivent être renseignées");
+            return;
+        }
+        setError(null);
+        setSubmitting(true);
+        axios.post(`/extra-ticking/today`,{start,end,description})
+            .then(result => {
+                onNew(result.data.extraTicking);
+            })
+            .catch(error => {
+                const message = error.response ? error.response.data.detail : error.toString();
+                setError(message);
+            })
+            .finally(() => setSubmitting(false))
     };
 
     const isFormValid = !!start && !!end;
@@ -97,8 +114,11 @@ function NewExtraTickingForm({onNew}){
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
             />
+            {error && <div className="error mb-2 text-center">{error}</div>}
             <div className="d-flex justify-center">
-                <Button disabled={!isFormValid} filled bordered>Enregistrer</Button>
+                <Button disabled={!isFormValid || submitting} filled bordered>
+                    {submitting ? 'Enregistrement...' : 'Enregistrer'}
+                </Button>
             </div>
         </form>
     );

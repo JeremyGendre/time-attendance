@@ -14,7 +14,7 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.6);
     background-color: var(--background-color);
-    min-width: 20em;
+    min-width: 30em;
     font-size: 1.1em;
     animation: linear pop 0.15s;
 }

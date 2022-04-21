@@ -70,7 +70,10 @@ class ExtraTickingController extends BaseAbstractController
         $manager->flush();
 
         return new JsonResponse([
-            'extraTicking' => $this->getSerializer()->normalize($extraTicking, null, ['groups' => 'main'])
+            'extraTicking' => $this->getSerializer()->normalize($extraTicking, null, [
+                'groups' => 'main',
+                DateTimeNormalizer::FORMAT_KEY => 'H:i'
+            ])
         ]);
     }
 }
