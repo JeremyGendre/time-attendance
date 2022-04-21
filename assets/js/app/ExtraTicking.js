@@ -71,7 +71,7 @@ export default function ExtraTicking(){
                             <tr key={`extra-ticking-${extraTicking.id}`}>
                                 <td>{extraTicking.startDate}</td>
                                 <td>{extraTicking.endDate}</td>
-                                <td>{extraTicking.description}</td>
+                                <td>{!!extraTicking.description ? extraTicking.description : <small><i>Aucun détail</i></small>}</td>
                                 <td>{extraTicking.deletable ? (
                                     <Button
                                         bordered

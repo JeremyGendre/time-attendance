@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('history') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('components/header.html.twig') }}
+    <div id="history-container"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('history') }}
+{% endblock %}

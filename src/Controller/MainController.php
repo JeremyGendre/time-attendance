@@ -43,8 +43,17 @@ class MainController extends BaseAbstractController
      * @Route("/admin", name="admin")
      * @return Response
      */
-    public function admin()
+    public function admin(): Response
     {
         return $this->render('admin/admin.html.twig');
+    }
+
+    /**
+     * @Route("/my-history", name="my_ticking_history")
+     * @return Response
+     */
+    public function tickingHistory(): Response
+    {
+        return $this->render('app/myHistory.html.twig');
     }
 }
