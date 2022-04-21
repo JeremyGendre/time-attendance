@@ -39,7 +39,7 @@ export default function ExtraTicking(){
                 setExtraTickings(prev => prev.filter(et => et.id !== extraTicking.id));
             })
             .catch(error => {
-                firePopup('Erreur', getRealErrorMessage(error));
+                firePopup('Erreur', getRealErrorMessage(error), 'error');
             })
             .finally(() => {
                 setCancelingExtraTickings(prev => prev.filter(et => et.id !== extraTicking.id));

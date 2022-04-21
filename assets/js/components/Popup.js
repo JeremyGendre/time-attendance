@@ -35,7 +35,7 @@ export default function Popup(
     const icon = () => {
         switch(type) {
             case 'error':
-                return <FontAwesomeIcon style={{color:'red'}} icon={faCircleXmark}/>;
+                return <FontAwesomeIcon style={{color:'var(--error-color)'}} icon={faCircleXmark}/>;
             case 'success':
                 return <FontAwesomeIcon style={{color:'green'}} icon={faCircleCheck}/>;
             default:

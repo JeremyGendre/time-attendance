@@ -7,11 +7,11 @@ export const usePopupContext = () => useContext(PopupContext);
 
 export default function PopupContextProvider({children}){
     const [showPopup, setShowPopup] = useState(false);
-    const [title, setTitle] = useState('Erreur');
+    const [title, setTitle] = useState('');
     const [type, setType] = useState(null);
-    const [message, setMessage] = useState('Une erreur est survenue');
+    const [message, setMessage] = useState('');
 
-    const firePopup = (newTitle = 'Erreur', newMessage = 'Une erreur est survenue', newType = null) => {
+    const firePopup = (newTitle = '', newMessage = '', newType = null) => {
         setTitle(newTitle);
         setMessage(newMessage);
         setType(newType);
