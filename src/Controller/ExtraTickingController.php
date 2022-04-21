@@ -84,7 +84,6 @@ class ExtraTickingController extends BaseAbstractController
      */
     public function deleteExtraTicking(ExtraTicking $extraTicking)
     {
-        throw new BadRequestException('ouais une erreur oui');
         $manager = $this->getManager();
         $manager->remove($extraTicking);
         $manager->flush();
