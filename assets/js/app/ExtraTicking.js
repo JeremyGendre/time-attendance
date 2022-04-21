@@ -26,11 +26,26 @@ export default function ExtraTicking(){
                     <FontAwesomeIcon className="my-auto mr-1" icon={faPlus} /> Nouveau
                 </div>
             </div>
-            <div>{extraTickings.map(extraTicking => (
-                <div key={`extra-ticking-${extraTicking.id}`}>
-                    <div>{extraTicking.startDate} - {extraTicking.endDate}</div>
-                </div>
-            ))}</div>
+            {extraTickings.length > 0 && (
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Départ</th>
+                        <th>Retour</th>
+                        <th>Détail</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {extraTickings.map(extraTicking => (
+                        <tr key={`extra-ticking-${extraTicking.id}`}>
+                            <td>{extraTicking.startDate}</td>
+                            <td>{extraTicking.endDate}</td>
+                            <td>{extraTicking.description}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            )}
         </div>
     );
 }

@@ -4,6 +4,7 @@ header{
     background-color: var(--header-background-color);
     padding: 1em;
     box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    z-index: 10;
 }
 
 img{
