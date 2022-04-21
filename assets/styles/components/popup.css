@@ -1,0 +1,22 @@
+.popup-background{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top:0;
+    left:0;
+    display: flex;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.popup{
+    margin:auto;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    background-color: var(--background-color);
+}
+
+.popup-title{
+    margin-top:0;
+    text-align: center;
+}

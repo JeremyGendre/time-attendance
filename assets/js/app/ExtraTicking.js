@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import Popup from "../components/Popup";
+import Button from "../components/Button";
 
 export default function ExtraTicking(){
     const [fetching, setFetching] = useState(true);
@@ -22,9 +23,7 @@ export default function ExtraTicking(){
         <div className="extra-tickings-container">
             <h2 className="d-inline-block">Pointages exceptionnels ({extraTickings.length})</h2>
             <div className="d-inline-block ml-2 my-auto">
-                <div className="d-flex my-button">
-                    <FontAwesomeIcon className="my-auto mr-1" icon={faPlus} /> Nouveau
-                </div>
+                <Button icon={faPlus}>Nouveau</Button>
             </div>
             {extraTickings.length > 0 && (
                 <table>
@@ -46,6 +45,16 @@ export default function ExtraTicking(){
                     </tbody>
                 </table>
             )}
+            <Popup title="Pointage exceptionnel">
+                <form>
+                    <div className="d-flex justify-between my-2">
+                        <input type="time"/>
+                        <input type="time"/>
+                    </div>
+                    <textarea className="w-full mb-2"></textarea>
+                    <Button bordered>Enregistrer</Button>
+                </form>
+            </Popup>
         </div>
     );
 }

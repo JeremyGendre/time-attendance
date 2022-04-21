@@ -90,3 +90,15 @@ table td{
     padding: 0.3em 0.7em;
     border-bottom: solid 1px rgba(0,0,0,0.1);
 }
+
+input[type=time]{
+    border-radius: 999px;
+    padding: 0.2em 0.5em;
+    border:solid 1px var(--header-background-color);
+    outline:none;
+    transition: all 0.15s ease-in-out;
+}
+input[type=time]:focus{
+    border-color:var(--hover-color);
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}

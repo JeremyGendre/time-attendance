@@ -132,20 +132,3 @@ hr{
     border:none;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-
-.my-button{
-    border-radius: 999px;
-    background-color: var(--background-color);
-    color: var(--header-background-color);
-    transition: all 0.15s ease-in-out;
-    cursor: pointer;
-    padding: 0.5em 1em;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-}
-.my-button:hover{
-    color: var(--background-color);
-    background-color: var(--header-background-color);
-}
-.my-button:active{
-    transform: scale(0.97);
-}
