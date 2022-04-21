@@ -76,4 +76,19 @@ class ExtraTickingController extends BaseAbstractController
             ])
         ]);
     }
+
+    /**
+     * @Route("/{id}", name="delete_one_extra_ticking", methods={"DELETE"})
+     * @param ExtraTicking $extraTicking
+     * @return JsonResponse
+     */
+    public function deleteExtraTicking(ExtraTicking $extraTicking)
+    {
+        throw new BadRequestException('ouais une erreur oui');
+        $manager = $this->getManager();
+        $manager->remove($extraTicking);
+        $manager->flush();
+
+        return $this->basicSuccessResponse();
+    }
 }

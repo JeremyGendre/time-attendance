@@ -29,3 +29,7 @@
     background-color: var(--background-color);
     color: var(--header-background-color);
 }
+
+.no-background{
+    background-color: transparent;
+}

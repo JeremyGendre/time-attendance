@@ -5,6 +5,7 @@ import AppContextProvider, {useAppContext} from "./context/AppContext";
 import Ticking from "./Ticking";
 import useTime from "../utils/hooks/useTime";
 import ExtraTicking from "./ExtraTicking";
+import PopupContextProvider from "./context/PopupContext";
 
 const appContainer = document.getElementById('app-container');
 
@@ -16,7 +17,9 @@ if(appContainer){
     const root = ReactDOM.createRoot(appContainer);
     root.render(
         <AppContextProvider defaultTodayTicking={(todayTicking || todayTicking !== '') ? todayTicking : null}>
-            <App/>
+            <PopupContextProvider>
+                <App/>
+            </PopupContextProvider>
         </AppContextProvider>
     );
 }

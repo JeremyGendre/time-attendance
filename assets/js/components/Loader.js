@@ -1,10 +1,16 @@
 import React from "react";
 import '../../styles/components/loader.css';
 
-export default function Loader({containerClass = '', loaderClass = '', containerStyle = {} , loaderStyle = {}}){
+export default function WideLoader({containerClass = '', loaderClass = '', containerStyle = {} , loaderStyle = {}}){
     return (
         <div className={"loader-container " + containerClass} style={containerStyle}>
-            <div className={"loader " + loaderClass} style={loaderStyle}/>
+            <Loader loaderClass={loaderClass} loaderStyle={loaderStyle}/>
         </div>
     );
+}
+
+export function Loader({loaderClass = '' , loaderStyle = {}}){
+    return(
+        <div className={"loader " + loaderClass} style={loaderStyle}/>
+    )
 }

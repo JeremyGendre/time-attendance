@@ -1,9 +1,10 @@
 import {useAppContext} from "./context/AppContext";
 import React, {useState} from "react";
 import axios from "axios";
-import Loader from "../components/Loader";
+import WideLoader from "../components/Loader";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleCheck, faCircleXmark} from "@fortawesome/free-solid-svg-icons";
+import getRealErrorMessage from "../utils/Error";
 
 export default function Ticking({title = '', property, action}){
     const {todayTicking} = useAppContext();
@@ -20,15 +21,14 @@ export default function Ticking({title = '', property, action}){
                 setTime(data.time);
             })
             .catch(error => {
-                const message = error.response ? error.response.data.detail : error.toString();
-                setError(message);
+                setError(getRealErrorMessage(error));
             })
             .finally(() => setLoading(false));
     };
 
     return (
         <div onClick={handleClick} className={`ticking-container ${loading ? 'ticking-loading' : ''} ${time ? 'ticked' : ''} ${error ? 'ticking-error' : ''}`}>
-            {loading && <Loader/>}
+            {loading && <WideLoader/>}
             <div>
                 <div className="font-bold d-flex justify-between">
                     <div>{title}</div>

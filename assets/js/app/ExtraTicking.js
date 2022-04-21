@@ -4,11 +4,15 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faCircleXmark} from "@fortawesome/free-solid-svg-icons";
 import Popup from "../components/Popup";
 import Button from "../components/Button";
+import {usePopupContext} from "./context/PopupContext";
+import getRealErrorMessage from "../utils/Error";
 
 export default function ExtraTicking(){
     const [fetching, setFetching] = useState(true);
     const [extraTickings, setExtraTickings] = useState([]);
+    const [cancelingExtraTickings, setCancelingExtraTickings] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
+    const {firePopup} = usePopupContext();
 
     useEffect(() => {
         axios.get(`/extra-ticking/today`)
@@ -28,6 +32,20 @@ export default function ExtraTicking(){
         setShowPopup(false);
     };
 
+    const handleCancelExtraTicking = (extraTicking) => event => {
+        setCancelingExtraTickings(prev => [...prev, extraTicking]);
+        axios.delete(`/extra-ticking/${extraTicking.id}`)
+            .then(() => {
+                setExtraTickings(prev => prev.filter(et => et.id !== extraTicking.id));
+            })
+            .catch(error => {
+                firePopup('Erreur', getRealErrorMessage(error));
+            })
+            .finally(() => {
+                setCancelingExtraTickings(prev => prev.filter(et => et.id !== extraTicking.id));
+            })
+    };
+
     if(fetching) return <div className="d-flex"><div className="my-auto mr-1">Chargement...</div><div className="loader simple-loader"/></div>;
 
     return (
@@ -43,16 +61,31 @@ export default function ExtraTicking(){
                         <th>Départ</th>
                         <th>Retour</th>
                         <th>Détail</th>
+                        <th/>
                     </tr>
                     </thead>
                     <tbody>
-                    {extraTickings.map(extraTicking => (
-                        <tr key={`extra-ticking-${extraTicking.id}`}>
-                            <td>{extraTicking.startDate}</td>
-                            <td>{extraTicking.endDate}</td>
-                            <td>{extraTicking.description}</td>
-                        </tr>
-                    ))}
+                    {extraTickings.map(extraTicking => {
+                        const deleting = cancelingExtraTickings.find(et => et.id === extraTicking.id);
+                        return (
+                            <tr key={`extra-ticking-${extraTicking.id}`}>
+                                <td>{extraTicking.startDate}</td>
+                                <td>{extraTicking.endDate}</td>
+                                <td>{extraTicking.description}</td>
+                                <td>{extraTicking.deletable ? (
+                                    <Button
+                                        bordered
+                                        noBackground
+                                        onClick={handleCancelExtraTicking(extraTicking)}
+                                        loading={deleting}
+                                        disabled={deleting}
+                                    >
+                                        Annuler
+                                    </Button>
+                                ) : ''}</td>
+                            </tr>
+                        );
+                    })}
                     </tbody>
                 </table>
             )}
@@ -83,8 +116,7 @@ function NewExtraTickingForm({onNew}){
                 onNew(result.data.extraTicking);
             })
             .catch(error => {
-                const message = error.response ? error.response.data.detail : error.toString();
-                setError(message);
+                setError(getRealErrorMessage(error));
             })
             .finally(() => setSubmitting(false))
     };
