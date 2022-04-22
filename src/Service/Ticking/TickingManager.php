@@ -8,6 +8,7 @@ use App\Entity\Ticking;
 use App\Entity\User;
 use App\Repository\TickingRepository;
 use App\Service\Utils\DateTime;
+use DateInterval;
 use DateTimeInterface;
 use Exception;
 use Symfony\Component\Security\Core\Security;
@@ -53,5 +54,19 @@ class TickingManager
     {
         $user = $user ?? $this->security->getUser();
         return $this->getOrCreateTicking($user, new DateTime());
+    }
+
+    /**
+     * @param User|null $user
+     * @param DateTimeInterface|null $date
+     * @return mixed
+     * @throws Exception
+     */
+    public function getUserTickingHistory(User $user = null, DateTimeInterface $date = null)
+    {
+        if(!$user) $user = $this->security->getUser();
+        if(!$date) $date = new DateTime();
+        $weekBefore = (clone $date)->sub(new DateInterval('P7D'));
+        return $this->tickingRepository->getUserHistory($user, $weekBefore, $date);
     }
 }

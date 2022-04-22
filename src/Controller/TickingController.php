@@ -3,16 +3,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Ticking;
-use App\Repository\TickingRepository;
 use App\Repository\UserRepository;
 use App\Service\Request\RequestManager;
+use App\Service\Ticking\TickingHelper;
 use App\Service\Ticking\TickingManager;
 use App\Service\Utils\DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 /**
  * @Route("/ticking")
@@ -69,6 +69,21 @@ class TickingController extends BaseAbstractController
 
         return new JsonResponse([
             'time' => $now->format('H:i')
+        ]);
+    }
+
+    /**
+     * @Route("/my-history", name="get_my_ticking_history", methods={"GET"})
+     * @param TickingManager $tickingManager
+     * @return JsonResponse
+     * @throws ExceptionInterface
+     * @throws Exception
+     */
+    public function myHistory(TickingManager $tickingManager):JsonResponse
+    {
+        $tickings = $tickingManager->getUserTickingHistory($this->getUser());
+        return new JsonResponse([
+            'tickings' => TickingHelper::normalizeManyTickings($tickings, $this->getSerializer())
         ]);
     }
 }

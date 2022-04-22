@@ -4,15 +4,13 @@
 namespace App\Controller;
 
 
-use App\Repository\ServiceRepository;
 use App\Repository\TickingRepository;
-use App\Service\Serializer\TimeSerializerHelper;
+use App\Service\Ticking\TickingHelper;
 use DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 class MainController extends BaseAbstractController
 {
@@ -27,11 +25,7 @@ class MainController extends BaseAbstractController
     {
         $todayTicking = $tickingRepository->findOneBy(['user' => $this->getUser(),'tickingDay' => new DateTime()]);
         if($todayTicking){
-            $todayTicking = $this->getSerializer()->normalize($todayTicking, null, [
-                'groups' => 'main',
-                DateTimeNormalizer::FORMAT_KEY => 'd/m/Y H:i',
-            ]);
-            $todayTicking = TimeSerializerHelper::normalizeTimeAttributes($todayTicking);
+            $todayTicking = TickingHelper::normalizeTicking($todayTicking, $this->getSerializer());
         }
 
         return $this->render('app/app.html.twig',[

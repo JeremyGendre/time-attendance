@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Ticking;
+use App\Entity\User;
+use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -22,8 +24,8 @@ class TickingRepository extends ServiceEntityRepository
     }
 
     /**
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @param Ticking $entity
+     * @param bool $flush
      */
     public function add(Ticking $entity, bool $flush = true): void
     {
@@ -34,8 +36,8 @@ class TickingRepository extends ServiceEntityRepository
     }
 
     /**
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @param Ticking $entity
+     * @param bool $flush
      */
     public function remove(Ticking $entity, bool $flush = true): void
     {
@@ -43,6 +45,26 @@ class TickingRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    /**
+     * @param User $user
+     * @param DateTimeInterface $dateMin
+     * @param DateTimeInterface $dateMax
+     * @return mixed
+     */
+    public function getUserHistory(User $user, DateTimeInterface $dateMin, DateTimeInterface $dateMax)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('t.tickingDay >= :dateMin and t.tickingDay <= :dateMax')
+            ->setParameter('dateMin', $dateMin)
+            ->setParameter('dateMax', $dateMax)
+            ->orderBy('t.tickingDay', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**
