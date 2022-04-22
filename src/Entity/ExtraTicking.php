@@ -103,7 +103,7 @@ class ExtraTicking extends AbstractHistory
     /**
      * @return bool
      * @throws Exception
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     public function isDeletable():bool
     {

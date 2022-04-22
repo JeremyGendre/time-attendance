@@ -5,6 +5,10 @@ import axios from 'axios';
 import getRealErrorMessage from "../../utils/Error";
 import WideLoader from "../../components/Loader";
 import '../../../styles/app/history.css';
+import {faEye} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Popup from "../../components/Popup";
+import {ExtraTickingTable} from "../../app/ExtraTicking";
 
 const historyContainer = document.getElementById('history-container');
 
@@ -20,6 +24,7 @@ if(historyContainer){
 function App(){
     const [tickings, setTickings] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showTickingExtras, setShowTickingExtras] = useState(null);
 
     useEffect(() => {
         axios.get(`/ticking/my-history`)
@@ -68,12 +73,22 @@ function App(){
                             <td>{ticking.breakDate}</td>
                             <td>{ticking.returnDate}</td>
                             <td>{ticking.exitDate}</td>
-                            <td>{ticking.extraTickings.length}</td>
+                            <td>
+                                {ticking.extraTickings.length}
+                                {ticking.extraTickings.length > 0 && (
+                                    <FontAwesomeIcon title="Voir" onClick={() => setShowTickingExtras(ticking)} className="ml-1 cursor-pointer theme-icons" icon={faEye}/>
+                                )}
+                            </td>
                         </tr>
                     );
                 })}
                 </tbody>
             </table>
+            {!!showTickingExtras && (
+                <Popup onClose={() => setShowTickingExtras(null)} show={true} title={`Pointage(s) exceptionnel(s) du ${showTickingExtras.tickingDay}`}>
+                    <ExtraTickingTable fullWidth extraTickings={showTickingExtras.extraTickings}/>
+                </Popup>
+            )}
         </div>
     );
 }

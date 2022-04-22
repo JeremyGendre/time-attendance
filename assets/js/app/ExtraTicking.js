@@ -10,9 +10,7 @@ import getRealErrorMessage from "../utils/Error";
 export default function ExtraTicking(){
     const [fetching, setFetching] = useState(true);
     const [extraTickings, setExtraTickings] = useState([]);
-    const [cancelingExtraTickings, setCancelingExtraTickings] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
-    const {firePopup} = usePopupContext();
 
     useEffect(() => {
         axios.get(`/extra-ticking/today`)
@@ -32,18 +30,8 @@ export default function ExtraTicking(){
         setShowPopup(false);
     };
 
-    const handleCancelExtraTicking = (extraTicking) => event => {
-        setCancelingExtraTickings(prev => [...prev, extraTicking]);
-        axios.delete(`/extra-ticking/${extraTicking.id}`)
-            .then(() => {
-                setExtraTickings(prev => prev.filter(et => et.id !== extraTicking.id));
-            })
-            .catch(error => {
-                firePopup('Erreur', getRealErrorMessage(error), 'error');
-            })
-            .finally(() => {
-                setCancelingExtraTickings(prev => prev.filter(et => et.id !== extraTicking.id));
-            })
+    const handleCancelExtraTicking = (extraTicking) => {
+        setExtraTickings(prev => prev.filter(et => et.id !== extraTicking.id));
     };
 
     if(fetching) return <div className="d-flex"><div className="my-auto mr-1">Chargement...</div><div className="loader simple-loader"/></div>;
@@ -55,44 +43,67 @@ export default function ExtraTicking(){
                 <Button onClick={handleNewExtraTickingClick} icon={faPlus}>Nouveau</Button>
             </div>
             {extraTickings.length > 0 && (
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Départ</th>
-                        <th>Retour</th>
-                        <th>Détail</th>
-                        <th/>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {extraTickings.map(extraTicking => {
-                        const deleting = cancelingExtraTickings.find(et => et.id === extraTicking.id);
-                        return (
-                            <tr key={`extra-ticking-${extraTicking.id}`}>
-                                <td>{extraTicking.startDate}</td>
-                                <td>{extraTicking.endDate}</td>
-                                <td>{!!extraTicking.description ? extraTicking.description : <small><i>Aucun détail</i></small>}</td>
-                                <td>{extraTicking.deletable ? (
-                                    <Button
-                                        bordered
-                                        noBackground
-                                        onClick={handleCancelExtraTicking(extraTicking)}
-                                        loading={deleting}
-                                        disabled={deleting}
-                                    >
-                                        Annuler
-                                    </Button>
-                                ) : ''}</td>
-                            </tr>
-                        );
-                    })}
-                    </tbody>
-                </table>
+                <ExtraTickingTable extraTickings={extraTickings} onCancel={handleCancelExtraTicking}/>
             )}
             <Popup onClose={() => setShowPopup(false)} show={showPopup} title="Pointage exceptionnel">
                 <NewExtraTickingForm onNew={handleNewExtraTicking}/>
             </Popup>
         </div>
+    );
+}
+
+export function ExtraTickingTable({extraTickings, fullWidth = false, onCancel = null}) {
+    const [cancelingExtraTickings, setCancelingExtraTickings] = useState([]);
+    const {firePopup} = usePopupContext();
+
+    const handleCancelExtraTicking = (extraTicking) => event => {
+        setCancelingExtraTickings(prev => [...prev, extraTicking]);
+        axios.delete(`/extra-ticking/${extraTicking.id}`)
+            .then(() => {
+                onCancel(extraTicking);
+            })
+            .catch(error => {
+                firePopup('Erreur', getRealErrorMessage(error), 'error');
+            })
+            .finally(() => {
+                setCancelingExtraTickings(prev => prev.filter(et => et.id !== extraTicking.id));
+            })
+    };
+
+    return (
+        <table className={fullWidth ? 'w-full text-left' : ''}>
+            <thead>
+            <tr>
+                <th>Départ</th>
+                <th>Retour</th>
+                <th>Détail</th>
+                <th/>
+            </tr>
+            </thead>
+            <tbody>
+            {extraTickings.map(extraTicking => {
+                const deleting = cancelingExtraTickings.find(et => et.id === extraTicking.id);
+                return (
+                    <tr key={`extra-ticking-${extraTicking.id}`}>
+                        <td>{extraTicking.startDate}</td>
+                        <td>{extraTicking.endDate}</td>
+                        <td>{!!extraTicking.description ? extraTicking.description : <small><i>Aucun détail</i></small>}</td>
+                        <td>{(extraTicking.deletable && onCancel !== null) ? (
+                            <Button
+                                bordered
+                                noBackground
+                                onClick={handleCancelExtraTicking(extraTicking)}
+                                loading={deleting}
+                                disabled={deleting}
+                            >
+                                Annuler
+                            </Button>
+                        ) : ''}</td>
+                    </tr>
+                );
+            })}
+            </tbody>
+        </table>
     );
 }
 

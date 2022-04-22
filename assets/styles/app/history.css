@@ -1,7 +1,6 @@
 #history-container{ /* div root qui permet de render le composant App react */
     flex:1;
     display: flex;
-    position: relative;
 }
 
 .history-container{
