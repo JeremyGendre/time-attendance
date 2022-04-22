@@ -33,27 +33,32 @@ class TickingManager
     /**
      * @param User $user
      * @param DateTimeInterface $date
+     * @param bool $flushOnCreate
      * @return Ticking
      */
-    public function getOrCreateTicking(User $user, DateTimeInterface $date): Ticking
+    public function getOrCreateTicking(User $user, DateTimeInterface $date, bool $flushOnCreate = false): Ticking
     {
         $ticking = $this->tickingRepository->findOneBy(['user' => $user,'tickingDay' => $date]);
         if(!$ticking) {
             $ticking = new Ticking();
             $ticking->setUser($user)->setTickingDay($date);
+            if($flushOnCreate){
+                $this->tickingRepository->add($ticking, true);
+            }
         }
         return $ticking;
     }
 
     /**
      * @param User|null $user
+     * @param bool $flushOnCreate
      * @return Ticking
      * @throws Exception
      */
-    public function getOrCreateTodayTicking(User $user = null): Ticking
+    public function getOrCreateTodayTicking(User $user = null, bool $flushOnCreate = false): Ticking
     {
         $user = $user ?? $this->security->getUser();
-        return $this->getOrCreateTicking($user, new DateTime());
+        return $this->getOrCreateTicking($user, new DateTime(), $flushOnCreate);
     }
 
     /**

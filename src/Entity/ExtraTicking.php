@@ -18,30 +18,30 @@ class ExtraTicking extends AbstractHistory
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="time")
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="time")
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ticking::class, inversedBy="extraTickings")
+     * @ORM\ManyToOne(targetEntity=Ticking::class, inversedBy="extraTickings",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"main"})
      */

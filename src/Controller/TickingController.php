@@ -83,7 +83,7 @@ class TickingController extends BaseAbstractController
     {
         $tickings = $tickingManager->getUserTickingHistory($this->getUser());
         return new JsonResponse([
-            'tickings' => TickingHelper::normalizeManyTickings($tickings, $this->getSerializer())
+            'tickings' => TickingHelper::normalizeManyTickings($tickings, $this->getSerializer(), 'history')
         ]);
     }
 }

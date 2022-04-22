@@ -4,9 +4,8 @@
 namespace App\Controller;
 
 
-use App\Repository\TickingRepository;
 use App\Service\Ticking\TickingHelper;
-use DateTime;
+use App\Service\Ticking\TickingManager;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,14 +15,14 @@ class MainController extends BaseAbstractController
 {
     /**
      * @Route("/", name="home")
-     * @param TickingRepository $tickingRepository
+     * @param TickingManager $tickingManager
      * @return Response
-     * @throws Exception
      * @throws ExceptionInterface
+     * @throws Exception
      */
-    public function home(TickingRepository $tickingRepository)
+    public function home(TickingManager $tickingManager)
     {
-        $todayTicking = $tickingRepository->findOneBy(['user' => $this->getUser(),'tickingDay' => new DateTime()]);
+        $todayTicking = $tickingManager->getOrCreateTodayTicking($this->getUser(), true);
         if($todayTicking){
             $todayTicking = TickingHelper::normalizeTicking($todayTicking, $this->getSerializer());
         }

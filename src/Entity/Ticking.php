@@ -18,49 +18,50 @@ class Ticking
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $tickingDay;
 
     /**
      * @ORM\Column(type="time", nullable=true)
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $enterDate;
 
     /**
      * @ORM\Column(type="time", nullable=true)
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $breakDate;
 
     /**
      * @ORM\Column(type="time", nullable=true)
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $returnDate;
 
     /**
      * @ORM\Column(type="time", nullable=true)
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $exitDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=ExtraTicking::class, mappedBy="ticking")
+     *  @Groups({"history"})
      */
     private $extraTickings;
 

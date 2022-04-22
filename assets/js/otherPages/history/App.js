@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import PopupContextProvider from "../../app/context/PopupContext";
 import axios from 'axios';
 import getRealErrorMessage from "../../utils/Error";
+import WideLoader from "../../components/Loader";
+import '../../../styles/app/history.css';
 
 const historyContainer = document.getElementById('history-container');
 
@@ -30,7 +32,48 @@ function App(){
             .finally(() => setLoading(false))
     },[]);
 
+    if(loading) return (
+        <WideLoader
+            containerStyle={{backgroundColor:'transparent'}}
+            loaderStyle={{
+                borderWidth:'4px',
+                width:'3em',
+                height: '3em',
+                borderColor:'var(--background-color)',
+                borderBottomColor:'var(--header-background-color)'
+            }}
+        />
+    );
+
     return (
-        <div>history</div>
+        <div className="history-container">
+            <h1>Mon Historique</h1>
+            <table className="w-full text-center">
+                <thead>
+                <tr>
+                    <th>Journée</th>
+                    <th>Entrée</th>
+                    <th>Pause</th>
+                    <th>Retour Pause</th>
+                    <th>Sortie</th>
+                    <th>Pointages exceptionnels</th>
+                </tr>
+                </thead>
+                <tbody>
+                {tickings.map(ticking => {
+                    return (
+                        <tr key={`ticking-${ticking.id}`}>
+                            <td>{ticking.tickingDay}</td>
+                            <td>{ticking.enterDate}</td>
+                            <td>{ticking.breakDate}</td>
+                            <td>{ticking.returnDate}</td>
+                            <td>{ticking.exitDate}</td>
+                            <td>{ticking.extraTickings.length}</td>
+                        </tr>
+                    );
+                })}
+                </tbody>
+            </table>
+        </div>
     );
 }

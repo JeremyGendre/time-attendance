@@ -135,7 +135,7 @@ body{
 
 /******************************************/
 
-h2{
+h2, h1{
     color:var(--title-color);
 }
 
@@ -162,4 +162,19 @@ hr{
 }
 .theme-icons:hover{
     color:var(--hover-color);
+}
+
+table{
+    border-collapse: collapse;
+}
+table th{
+    border-bottom: solid 1px var(--header-background-color);
+    padding: 0.3em 0.7em;
+}
+table td{
+    padding: 0.3em 0.7em;
+    border-bottom: solid 1px rgba(0,0,0,0.1);
+}
+table tbody tr:hover{
+    background-color: var(--background-color);
 }

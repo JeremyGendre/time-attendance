@@ -16,14 +16,15 @@ class TickingHelper
     /**
      * @param Ticking $ticking
      * @param Serializer $serializer
+     * @param string $groups
      * @return array
      * @throws ExceptionInterface
      * @throws Exception
      */
-    public static function normalizeTicking(Ticking $ticking, Serializer $serializer)
+    public static function normalizeTicking(Ticking $ticking, Serializer $serializer, string $groups = 'main')
     {
         $result = $serializer->normalize($ticking, null, [
-            'groups' => 'main',
+            'groups' => $groups,
             DateTimeNormalizer::FORMAT_KEY => 'd/m/Y H:i',
         ]);
         return TimeSerializerHelper::normalizeTimeAttributes($result);
@@ -32,14 +33,15 @@ class TickingHelper
     /**
      * @param $tickings
      * @param Serializer $serializer
+     * @param string $groups
      * @return array
      * @throws ExceptionInterface
      * @throws Exception
      */
-    public static function normalizeManyTickings($tickings, Serializer $serializer)
+    public static function normalizeManyTickings($tickings, Serializer $serializer, string $groups = 'main')
     {
         $result = $serializer->normalizeMany($tickings, null, [
-            'groups' => 'main',
+            'groups' => $groups,
             DateTimeNormalizer::FORMAT_KEY => 'd/m/Y H:i',
         ]);
         return TimeSerializerHelper::normalizeTimeAttributes($result);

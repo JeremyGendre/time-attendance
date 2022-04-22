@@ -10,7 +10,7 @@ abstract class AbstractHistory
 {
     /**
      * @ORM\Column(type="datetime_immutable", nullable=false, options={"default": "CURRENT_TIMESTAMP"})
-     * @Groups({"main"})
+     * @Groups({"main","history"})
      */
     protected DateTimeImmutable $createdAt;
 
