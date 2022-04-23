@@ -6,6 +6,7 @@
     left:0;
     display: flex;
     background-color: rgba(0,0,0,0.5);
+    z-index: 11;
 }
 
 .popup{
@@ -17,6 +18,7 @@
     min-width: 30em;
     font-size: 1.1em;
     animation: linear pop 0.15s;
+    z-index: 12;
 }
 
 .popup-title{

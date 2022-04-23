@@ -5,10 +5,11 @@ import axios from 'axios';
 import getRealErrorMessage from "../../utils/Error";
 import WideLoader from "../../components/Loader";
 import '../../../styles/app/history.css';
-import {faEye} from "@fortawesome/free-solid-svg-icons";
+import {faEye, faArrowLeft, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Popup from "../../components/Popup";
 import {ExtraTickingTable} from "../../app/ExtraTicking";
+import Button from "../../components/Button";
 
 const historyContainer = document.getElementById('history-container');
 
@@ -23,7 +24,7 @@ if(historyContainer){
 
 function App(){
     const [tickings, setTickings] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [fetching, setFetching] = useState(true);
     const [showTickingExtras, setShowTickingExtras] = useState(null);
 
     useEffect(() => {
@@ -34,10 +35,10 @@ function App(){
             .catch(error => {
                 console.error(getRealErrorMessage(error));
             })
-            .finally(() => setLoading(false))
+            .finally(() => setFetching(false))
     },[]);
 
-    if(loading) return (
+    if(fetching) return (
         <WideLoader
             containerStyle={{backgroundColor:'transparent'}}
             loaderStyle={{
@@ -91,6 +92,11 @@ function App(){
                     <ExtraTickingTable fullWidth extraTickings={showTickingExtras.extraTickings}/>
                 </Popup>
             )}
+            <div className="w-full d-flex justify-center mt-2 gap-2">
+                <Button icon={faArrowLeft}>Semaine précédente</Button>
+                <Button disabled>Semaine en cours</Button>
+                <Button icon={faArrowRight} iconPosition="right" disabled>Semaine suivante</Button>
+            </div>
         </div>
     );
 }
