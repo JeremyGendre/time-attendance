@@ -112,4 +112,24 @@ class ExtraTicking extends AbstractHistory
         $date->setTime($this->getEndDate()->format('H'),$this->getEndDate()->format('i'));
         return $now < $date;
     }
+
+    /**
+     * @Groups({"main","history"})
+     * @param string $format
+     * @return string
+     */
+    public function getFormattedStartDate(string $format = 'H:i'): string
+    {
+        return $this->getStartDate() ? $this->getStartDate()->format($format) : '';
+    }
+
+    /**
+     * @Groups({"main","history"})
+     * @param string $format
+     * @return string
+     */
+    public function getFormattedEndDate(string $format = 'H:i'): string
+    {
+        return $this->getEndDate() ? $this->getEndDate()->format($format) : '';
+    }
 }

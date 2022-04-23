@@ -68,11 +68,11 @@ function App(){
                 {tickings.map(ticking => {
                     return (
                         <tr key={`ticking-${ticking.id}`}>
-                            <td>{ticking.tickingDay}</td>
-                            <td>{ticking.enterDate}</td>
-                            <td>{ticking.breakDate}</td>
-                            <td>{ticking.returnDate}</td>
-                            <td>{ticking.exitDate}</td>
+                            <td>{ticking.formattedTickingDay}</td>
+                            <td>{ticking.formattedEnterDate}</td>
+                            <td>{ticking.formattedBreakDate}</td>
+                            <td>{ticking.formattedReturnDate}</td>
+                            <td>{ticking.formattedExitDate}</td>
                             <td>
                                 {ticking.extraTickings.length}
                                 {ticking.extraTickings.length > 0 && (
@@ -85,7 +85,7 @@ function App(){
                 </tbody>
             </table>
             {!!showTickingExtras && (
-                <Popup onClose={() => setShowTickingExtras(null)} show={true} title={`Pointage(s) exceptionnel(s) du ${showTickingExtras.tickingDay}`}>
+                <Popup onClose={() => setShowTickingExtras(null)} show={true} title={`Pointage(s) exceptionnel(s) du ${showTickingExtras.formattedTickingDay}`}>
                     <ExtraTickingTable fullWidth extraTickings={showTickingExtras.extraTickings}/>
                 </Popup>
             )}

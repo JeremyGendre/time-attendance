@@ -31,10 +31,10 @@ function App(){
         <div className="app-container">
             <div className="text-center my-2" style={{fontSize: '2em'}}>Nous sommes le <strong>{time}</strong></div>
             <div className="app-ticking-container">
-                <Ticking title="Entrée" property="enterDate" action="enter"/>
-                <Ticking title="Pause" property="breakDate" action="break"/>
-                <Ticking title="Retour" property="returnDate" action="return"/>
-                <Ticking title="Sortie" property="exitDate" action="exit"/>
+                <Ticking title="Entrée" property="formattedEnterDate" action="enter"/>
+                <Ticking title="Pause" property="formattedBreakDate" action="break"/>
+                <Ticking title="Retour" property="formattedReturnDate" action="return"/>
+                <Ticking title="Sortie" property="formattedExitDate" action="exit"/>
             </div>
             <div className="px-2 my-2 w-full">
                 <hr className="w-full"/>

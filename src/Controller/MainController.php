@@ -4,7 +4,6 @@
 namespace App\Controller;
 
 
-use App\Service\Ticking\TickingHelper;
 use App\Service\Ticking\TickingManager;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +23,7 @@ class MainController extends BaseAbstractController
     {
         $todayTicking = $tickingManager->getOrCreateTodayTicking($this->getUser(), true);
         if($todayTicking){
-            $todayTicking = TickingHelper::normalizeTicking($todayTicking, $this->getSerializer());
+            $todayTicking = $this->getSerializer()->normalize($todayTicking, null, ['groups' => 'main']);
         }
 
         return $this->render('app/app.html.twig',[

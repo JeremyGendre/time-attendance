@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 /**
  * @Route("/extra-ticking")
@@ -23,20 +22,19 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 class ExtraTickingController extends BaseAbstractController
 {
     /**
-     * @Route("/today", name="get_extra_ticking_of_the_day", methods={"GET"})
+     * @Route("/today", name="get_extra_tickings_of_the_day", methods={"GET"})
      * @param TickingRepository $tickingRepository
      * @return JsonResponse
      * @throws Exception
      * @throws ExceptionInterface
      */
-    public function getTodayExtraTicking(TickingRepository $tickingRepository):JsonResponse
+    public function getTodayExtraTickings(TickingRepository $tickingRepository):JsonResponse
     {
         $todayTicking = $tickingRepository->findOneBy(['user' => $this->getUser(), 'tickingDay' => new DateTime()]);
         $extraTickings = $todayTicking ? $todayTicking->getExtraTickings() : [];
         return new JsonResponse([
             'extraTickings' => $this->getSerializer()->normalizeMany($extraTickings,null,[
-                'groups' => 'main',
-                DateTimeNormalizer::FORMAT_KEY => 'H:i'
+                'groups' => 'main'
             ])
         ]);
     }
@@ -71,8 +69,7 @@ class ExtraTickingController extends BaseAbstractController
 
         return new JsonResponse([
             'extraTicking' => $this->getSerializer()->normalize($extraTicking, null, [
-                'groups' => 'main',
-                DateTimeNormalizer::FORMAT_KEY => 'H:i'
+                'groups' => 'main'
             ])
         ]);
     }

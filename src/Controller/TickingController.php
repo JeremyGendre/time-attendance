@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Repository\UserRepository;
 use App\Service\Request\RequestManager;
-use App\Service\Ticking\TickingHelper;
 use App\Service\Ticking\TickingManager;
 use App\Service\Utils\DateTime;
 use Exception;
@@ -83,7 +82,7 @@ class TickingController extends BaseAbstractController
     {
         $tickings = $tickingManager->getUserTickingHistory($this->getUser());
         return new JsonResponse([
-            'tickings' => TickingHelper::normalizeManyTickings($tickings, $this->getSerializer(), 'history')
+            'tickings' => $this->getSerializer()->normalizeMany($tickings, null, ['groups' => 'history'])
         ]);
     }
 }

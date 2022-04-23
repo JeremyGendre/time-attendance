@@ -85,8 +85,8 @@ export function ExtraTickingTable({extraTickings, fullWidth = false, onCancel = 
                 const deleting = cancelingExtraTickings.find(et => et.id === extraTicking.id);
                 return (
                     <tr key={`extra-ticking-${extraTicking.id}`}>
-                        <td>{extraTicking.startDate}</td>
-                        <td>{extraTicking.endDate}</td>
+                        <td>{extraTicking.formattedStartDate}</td>
+                        <td>{extraTicking.formattedEndDate}</td>
                         <td>{!!extraTicking.description ? extraTicking.description : <small><i>Aucun détail</i></small>}</td>
                         <td>{(extraTicking.deletable && onCancel !== null) ? (
                             <Button

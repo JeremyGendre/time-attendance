@@ -176,4 +176,54 @@ class Ticking
 
         return $this;
     }
+
+    /**
+     * @Groups({"main","history"})
+     * @param string $format
+     * @return string
+     */
+    public function getFormattedTickingDay(string $format = 'd/m/Y'): string
+    {
+        return $this->getTickingDay()->format($format);
+    }
+
+    /**
+     * @Groups({"main","history"})
+     * @param string $format
+     * @return string
+     */
+    public function getFormattedEnterDate(string $format = 'H:i'): string
+    {
+        return $this->getEnterDate() ? $this->getEnterDate()->format($format) : '';
+    }
+
+    /**
+     * @Groups({"main","history"})
+     * @param string $format
+     * @return string
+     */
+    public function getFormattedBreakDate(string $format = 'H:i'): string
+    {
+        return $this->getBreakDate() ? $this->getBreakDate()->format($format) : '';
+    }
+
+    /**
+     * @Groups({"main","history"})
+     * @param string $format
+     * @return string
+     */
+    public function getFormattedReturnDate(string $format = 'H:i'): string
+    {
+        return $this->getReturnDate() ? $this->getReturnDate()->format($format) : '';
+    }
+
+    /**
+     * @Groups({"main","history"})
+     * @param string $format
+     * @return string
+     */
+    public function getFormattedExitDate(string $format = 'H:i'): string
+    {
+        return $this->getExitDate() ? $this->getExitDate()->format($format) : '';
+    }
 }
