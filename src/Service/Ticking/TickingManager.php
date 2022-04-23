@@ -71,7 +71,7 @@ class TickingManager
     {
         if(!$user) $user = $this->security->getUser();
         if(!$date) $date = new DateTime();
-        $weekBefore = (clone $date)->sub(new DateInterval('P7D'));
-        return $this->tickingRepository->getUserHistory($user, $weekBefore, $date);
+        $mondayOfWeek = DateTime::getMondayOfCurrentWeek();
+        return $this->tickingRepository->getUserHistory($user, $mondayOfWeek, $date);
     }
 }

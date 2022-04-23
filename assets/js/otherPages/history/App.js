@@ -61,7 +61,7 @@ function App(){
                     <th>Pause</th>
                     <th>Retour Pause</th>
                     <th>Sortie</th>
-                    <th>Pointages exceptionnels</th>
+                    <th className="text-left">Pointages exceptionnels</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,7 +73,7 @@ function App(){
                             <td>{ticking.formattedBreakDate}</td>
                             <td>{ticking.formattedReturnDate}</td>
                             <td>{ticking.formattedExitDate}</td>
-                            <td>
+                            <td className="text-left">
                                 {ticking.extraTickings.length}
                                 {ticking.extraTickings.length > 0 && (
                                     <FontAwesomeIcon title="Voir" onClick={() => setShowTickingExtras(ticking)} className="ml-1 cursor-pointer theme-icons" icon={faEye}/>
