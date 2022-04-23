@@ -56,7 +56,8 @@ function App(){
             <table className="w-full text-center">
                 <thead>
                 <tr>
-                    <th>Journée</th>
+                    <th/>
+                    <th>Date</th>
                     <th>Entrée</th>
                     <th>Pause</th>
                     <th>Retour Pause</th>
@@ -68,6 +69,7 @@ function App(){
                 {tickings.map(ticking => {
                     return (
                         <tr key={`ticking-${ticking.id}`}>
+                            <td className="text-right">{ticking.tickingDayLabel}</td>
                             <td>{ticking.formattedTickingDay}</td>
                             <td>{ticking.formattedEnterDate}</td>
                             <td>{ticking.formattedBreakDate}</td>

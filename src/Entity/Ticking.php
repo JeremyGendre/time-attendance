@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TickingRepository;
+use App\Service\Utils\DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -185,6 +186,15 @@ class Ticking
     public function getFormattedTickingDay(string $format = 'd/m/Y'): string
     {
         return $this->getTickingDay()->format($format);
+    }
+
+    /**
+     * @Groups({"main","history"})
+     * @return string
+     */
+    public function getTickingDayLabel(): string
+    {
+        return DateTime::getDayLabel($this->getTickingDay());
     }
 
     /**
