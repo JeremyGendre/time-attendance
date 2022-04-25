@@ -4,7 +4,10 @@
 namespace App\Controller;
 
 
+use App\Service\Request\RequestManager;
+use App\Service\Ticking\TickingHelper;
 use App\Service\Ticking\TickingManager;
+use App\Service\Utils\DateTime;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,10 +45,19 @@ class MainController extends BaseAbstractController
 
     /**
      * @Route("/my-history", name="my_ticking_history")
+     * @param RequestManager $requestManager
      * @return Response
+     * @throws Exception
      */
-    public function tickingHistory(): Response
+    public function tickingHistory(RequestManager $requestManager): Response
     {
-        return $this->render('app/myHistory.html.twig');
+        [$week, $year] = TickingHelper::getWeekAndYearFromRequest($requestManager->getCurrentRequest());
+        $now = new DateTime();
+        return $this->render('app/myHistory.html.twig',[
+            'requestedWeek' => $week,
+            'currentWeek' => $now->format('W'),
+            'currentYear' => $now->format('Y'),
+            'requestedYear' => $year
+        ]);
     }
 }

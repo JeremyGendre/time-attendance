@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Repository\UserRepository;
 use App\Service\Request\RequestManager;
+use App\Service\Ticking\TickingHelper;
 use App\Service\Ticking\TickingManager;
 use App\Service\Utils\DateTime;
 use Exception;
@@ -74,15 +75,19 @@ class TickingController extends BaseAbstractController
     /**
      * @Route("/my-history", name="get_my_ticking_history", methods={"GET"})
      * @param TickingManager $tickingManager
+     * @param RequestManager $requestManager
      * @return JsonResponse
      * @throws ExceptionInterface
      * @throws Exception
      */
-    public function myHistory(TickingManager $tickingManager):JsonResponse
+    public function myHistory(TickingManager $tickingManager, RequestManager $requestManager):JsonResponse
     {
+        [$week, $year] = TickingHelper::getWeekAndYearFromRequest($requestManager->getCurrentRequest());
         $tickings = $tickingManager->getUserTickingHistory($this->getUser());
         return new JsonResponse([
-            'tickings' => $this->getSerializer()->normalizeMany($tickings, null, ['groups' => 'history'])
+            'tickings' => $this->getSerializer()->normalizeMany($tickings, null, ['groups' => 'history']),
+            'requestedWeek' => $week,
+            'requestedYear' => $year
         ]);
     }
 }
