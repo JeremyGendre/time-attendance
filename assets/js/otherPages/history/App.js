@@ -54,7 +54,7 @@ if(historyContainer){
         },[]);
 
         const handlePreviousWeekClick = () => {
-            //setLoadingType(loadingTypes.previous);
+            setLoadingType(loadingTypes.previous);
             setWeek(prev => {
                 if(prev === 1){
                     setYear(prev => prev - 1);
@@ -66,13 +66,13 @@ if(historyContainer){
         };
 
         const handleCurrentWeekClick = () => {
-            //setLoadingType(loadingTypes.current);
+            setLoadingType(loadingTypes.current);
             setWeek(currentWeek);
             setYear(currentYear);
         };
 
         const handleNextWeekClick = () => {
-            //setLoadingType(loadingTypes.next);
+            setLoadingType(loadingTypes.next);
             setWeek(prev => {
                 if(prev === 52){
                     setYear(prev => prev + 1);
@@ -90,6 +90,12 @@ if(historyContainer){
             }else{
                 setUrlParam("week", week);
                 setUrlParam("year", year);
+            }
+            if(!fetching){
+                axios.get(resquestHistoryUrl, {params:{week,year}})
+                    .then(console.log)
+                    .catch(console.error)
+                    .finally(() => setLoadingType(null));
             }
         }, [week, year]);
 
@@ -151,9 +157,23 @@ if(historyContainer){
                     </Popup>
                 )}
                 <div className="w-full d-flex justify-center mt-2 gap-2">
-                    <Button disabled={!!loadingType} loading={loadingType === loadingTypes.previous} onClick={handlePreviousWeekClick} icon={faArrowLeft}>Semaine précédente</Button>
-                    <Button disabled={!!loadingType || !canCurrent} loading={loadingType === loadingTypes.current} onClick={handleCurrentWeekClick}>Semaine en cours</Button>
-                    <Button disabled={!!loadingType || !canNext } loading={loadingType === loadingTypes.next} onClick={handleNextWeekClick} icon={faArrowRight} iconPosition="right">Semaine suivante</Button>
+                    <Button
+                        disabled={!!loadingType}
+                        loading={loadingType === loadingTypes.previous}
+                        onClick={handlePreviousWeekClick} icon={faArrowLeft}
+                    >Semaine précédente</Button>
+                    <Button
+                        disabled={!!loadingType || !canCurrent}
+                        loading={loadingType === loadingTypes.current}
+                        onClick={handleCurrentWeekClick}
+                    >Semaine en cours</Button>
+                    <Button
+                        disabled={!!loadingType || !canNext }
+                        loading={loadingType === loadingTypes.next}
+                        onClick={handleNextWeekClick}
+                        icon={faArrowRight}
+                        iconPosition="right"
+                    >Semaine suivante</Button>
                 </div>
             </div>
         );
