@@ -93,7 +93,9 @@ if(historyContainer){
             }
             if(!fetching){
                 axios.get(resquestHistoryUrl, {params:{week,year}})
-                    .then(console.log)
+                    .then(result => {
+                        setTickings(result.data.tickings);
+                    })
                     .catch(console.error)
                     .finally(() => setLoadingType(null));
             }
@@ -151,6 +153,7 @@ if(historyContainer){
                     })}
                     </tbody>
                 </table>
+                {tickings.length === 0 && <div className="my-2 text-center"><i>Aucun résultat</i></div>}
                 {!!showTickingExtras && (
                     <Popup onClose={() => setShowTickingExtras(null)} show={true} title={`Pointage(s) exceptionnel(s) du ${showTickingExtras.formattedTickingDay}`}>
                         <ExtraTickingTable fullWidth extraTickings={showTickingExtras.extraTickings}/>

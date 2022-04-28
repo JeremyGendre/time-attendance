@@ -83,7 +83,9 @@ class TickingController extends BaseAbstractController
     public function myHistory(TickingManager $tickingManager, RequestManager $requestManager):JsonResponse
     {
         [$week, $year] = TickingHelper::getWeekAndYearFromRequest($requestManager->getCurrentRequest());
-        $tickings = $tickingManager->getUserTickingHistory($this->getUser());
+        $sundayFromWeek = new DateTime();
+        $sundayFromWeek->setISODate($year, $week, 7);
+        $tickings = $tickingManager->getUserTickingHistory($this->getUser(), $sundayFromWeek);
         return new JsonResponse([
             'tickings' => $this->getSerializer()->normalizeMany($tickings, null, ['groups' => 'history']),
             'requestedWeek' => $week,
